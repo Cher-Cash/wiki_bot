@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup, Tag
+from urllib.parse import quote
+
 
 def page_by_name(name: str):
     page, status = load_page_by_name(name)
@@ -11,8 +13,8 @@ def page_by_name(name: str):
 
 def load_page_by_name(name: str):
     # https://ru.wikipedia.org/wiki/Вкус_ночи
-    name = name.replace(' ', '_')
-    url = f'https://ru.wikipedia.org/wiki/{name}'
+    quoted_name = quote(name)
+    url = f'https://ru.wikipedia.org/wiki/{quoted_name}'
     response = requests.get(url)
     return response.text, response.status_code
 
